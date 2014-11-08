@@ -1,3 +1,11 @@
+import java.io.BufferedWriter;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.FileReader;
+import java.io.FileWriter;
+
+import java.util.ArrayList;
+
 import java.util.Scanner;
 
 public class Elecciones
@@ -150,9 +158,9 @@ public class Elecciones
 
 		// Variables Partido
 		String pnombre = "Voiwa";
-		String ppresidente;
+		//String ppresidente;
 		int pnumero = 26;
-		String ptipo;
+		//String ptipo;
 		int pvotos = 66;
 		boolean pgobierno;
 		String par_nombre, par_presidente, par_tipo;
@@ -167,7 +175,7 @@ public class Elecciones
 		p.setNumero(pnumero);
 		p.setTipo("C");
 		p.setVotos(pvotos);
-		p.setGobierno(false);
+		p.setGobierno(true);
 
 		// Recoger valores de Partido.java
 		par_nombre = p.getNombre();
@@ -185,9 +193,57 @@ public class Elecciones
 		System.out.println("Tipo: " + par_tipo);
 		System.out.println("Votos: " + par_votos);
 		if (par_gobierno == true)
+		{
 			System.out.println("Gobierna");
+			String s = "Gobierna";
+		}
 		else
+		{
 			System.out.println("NO Gobierna");
+			String n = "No Gobierna";
+		}
 
+		System.out.println("\n\n Partidos");
+
+		// Leyendo el archivo listadosPartidos.txt
+		try
+		{
+			//BufferedWriter bw = new BufferedWriter(new FileWriter("listadosPartidos2.txt"));
+			BufferedReader br = new BufferedReader(new FileReader("listadosPartidos.txt"));
+
+			//Escribimos en el fichero mediante el método "write"
+			/*if (par_gobierno == true)
+				//bw.write(par_nombre + " " + par_presidente + " " + par_numero + " " + par_tipo + " " + par_votos + " " + "Gobierna");
+			else
+				bw.write(par_nombre);
+			bw.newLine();*/
+			//bw.write("aa");
+			//Guardamos los cambios del fichero mediante el método "flush"
+			//bw.flush();
+
+			ArrayList <String> partidos = new ArrayList <String> ();
+
+			String linea = br.readLine();
+			while(linea != null)
+			{
+				//System.out.println(linea);
+				partidos.add(linea);
+				linea = br.readLine();
+			}
+
+			for(int i=0; i<partidos.size(); i++)
+			{
+				System.out.println(partidos.get(i));
+			}
+
+			// Vaciar el ArrayList
+			partidos.clear();
+			// Comprobamos que se haya vaciado
+			System.out.println("\nVaciado correctamente. (" + partidos.size() + ")");
+			
+		}catch(IOException e)
+		{
+			System.out.println("Error E/S: "+e);
+		}
 	}
 }
